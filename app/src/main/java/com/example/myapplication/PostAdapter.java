@@ -46,19 +46,23 @@ public class PostAdapter extends ArrayAdapter<Post> {
                     .circleCrop()
                     .into(imgAvatar);
 
-            tvContent.post(() -> {
-                if (tvContent.getLineCount() > 3) {
-                    tvShowMore.setVisibility(View.VISIBLE);
+            tvContent.setMaxLines(3);
+            tvShowMore.setText("Show more...");
 
-                    tvShowMore.setOnClickListener(v -> {
-                        if (tvShowMore.getText().toString().equals("Show more...")) {
-                            tvContent.setMaxLines(Integer.MAX_VALUE); // Mở rộng hiển thị tất cả
-                            tvShowMore.setText("Show less");
-                        } else {
-                            tvContent.setMaxLines(3); // Thu gọn lại 3 dòng
-                            tvShowMore.setText("Show more...");
-                        }
-                    });
+            // 👇 luôn set click ở ngoài (QUAN TRỌNG)
+            tvShowMore.setOnClickListener(v -> {
+                if (tvShowMore.getText().toString().equals("Show more...")) {
+                    tvContent.setMaxLines(Integer.MAX_VALUE);
+                    tvShowMore.setText("Show less");
+                } else {
+                    tvContent.setMaxLines(3);
+                    tvShowMore.setText("Show more...");
+                }
+            });
+
+            tvContent.post(() -> {
+                if (tvContent.getLayout() != null && tvContent.getLayout().getLineCount() > 3) {
+                    tvShowMore.setVisibility(View.VISIBLE);
                 } else {
                     tvShowMore.setVisibility(View.GONE);
                 }

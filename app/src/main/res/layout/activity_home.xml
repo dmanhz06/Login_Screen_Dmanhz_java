@@ -2,53 +2,81 @@
 <androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:padding="16dp"
-    tools:context=".Home">
+    android:layout_height="match_parent">
 
+    <!-- HEADER -->
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/imgHeader"
+        android:layout_width="0dp"
+        android:layout_height="120dp"
+        android:scaleType="centerCrop"
+        android:src="@drawable/img"
+        app:shapeAppearanceOverlay="@style/RoundedBottomImage"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+    <!-- TITLE -->
+    <TextView
+        android:id="@+id/tvHomeTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Feed"
+        android:textColor="@android:color/white"
+        android:textSize="44sp"
+        android:textStyle="bold"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="28dp"
+        app:layout_constraintTop_toTopOf="@id/imgHeader"
+        app:layout_constraintStart_toStartOf="parent"/>
+
+    <!-- INPUT -->
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/layoutPostInput"
         style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="12dp"
+        android:layout_margin="16dp"
         android:hint="Write your ideas!!!"
-        app:layout_constraintTop_toTopOf="parent"
+        app:boxStrokeColor="#11e2fe"
+        app:layout_constraintTop_toBottomOf="@id/imgHeader"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toStartOf="@id/btnPost">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/etPostContent"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:inputType="textMultiLine"
-            android:maxLines="4" />
+            android:layout_height="wrap_content"/>
     </com.google.android.material.textfield.TextInputLayout>
 
+    <!-- BUTTON -->
+
+    <!-- LIST -->
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btnPost"
         android:layout_width="wrap_content"
         android:layout_height="56dp"
         android:layout_marginTop="4dp"
+        android:layout_marginEnd="16dp"
         android:text="Post"
-        app:cornerRadius="12dp"
-        app:layout_constraintTop_toTopOf="@id/layoutPostInput"
-        app:layout_constraintEnd_toEndOf="parent" />
+        android:textColor="@android:color/white"
+        app:backgroundTint="#2196F3"
+        app:cornerRadius="10dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/layoutPostInput" />
 
     <ListView
         android:id="@+id/lvPosts"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
+        android:layout_marginHorizontal="15dp"
+        android:layout_marginTop="22dp"
         android:layout_height="0dp"
-        android:layout_marginTop="16dp"
         android:divider="@android:color/transparent"
         android:dividerHeight="16dp"
-        android:scrollbars="none"
         app:layout_constraintTop_toBottomOf="@id/layoutPostInput"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        tools:listitem="@layout/item_post" />
+        app:layout_constraintEnd_toEndOf="parent"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

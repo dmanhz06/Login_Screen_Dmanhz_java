@@ -52,8 +52,9 @@ public class Home extends AppCompatActivity {
         postList = new ArrayList<>();
         postAdapter = new PostAdapter(this, postList);
         lvPosts.setAdapter(postAdapter);
+        String currentDate = new SimpleDateFormat("HH:mm dd/MM/yyyy", Locale.getDefault()).format(new Date());
 
-        postList.add(new Post("System", "24/03/2026", "Welcome to the Home Page!", avatarUrl));
+        postList.add(new Post("System", currentDate, "Welcome to the Home Page!", avatarUrl));
         postAdapter.notifyDataSetChanged();
 
         btnPost.setOnClickListener(new View.OnClickListener() {
@@ -66,7 +67,7 @@ public class Home extends AppCompatActivity {
                     return;
                 }
 
-                String currentDate = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault()).format(new Date());
+                String currentDate = new SimpleDateFormat("HH:mm dd/MM/yyyy", Locale.getDefault()).format(new Date());
 
                 Post newPost = new Post(userName, currentDate, content, avatarUrl);
                 postList.add(0, newPost);

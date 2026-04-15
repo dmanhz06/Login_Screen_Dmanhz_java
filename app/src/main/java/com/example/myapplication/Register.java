@@ -6,7 +6,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
-
+import androidx.appcompat.app.AppCompatDelegate;
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
@@ -22,12 +22,14 @@ public class Register extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_register);
+
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
+            v.setPadding(systemBars.left, 0, systemBars.right, systemBars.bottom);
             return insets;
         });
 
@@ -46,11 +48,11 @@ public class Register extends AppCompatActivity {
                 String confirmPassword = etConfirmPassword.getText().toString().trim();
 
                 if (name.isEmpty() || email.isEmpty() || password.isEmpty() || confirmPassword.isEmpty()) {
-                    Toast.makeText(Register.this,"Please fill all information!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(Register.this,"Vui lòng điền đầy đủ thông tin!", Toast.LENGTH_SHORT).show();
                     return;
                 }
                 if (!password.equals(confirmPassword)) {
-                    Toast.makeText(Register.this, "Passwords are not match!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(Register.this, "Sai mật khẩu hoặc tài khoản!", Toast.LENGTH_SHORT).show();
                     return;
                 }
 
@@ -60,7 +62,7 @@ public class Register extends AppCompatActivity {
                 intent.putExtra("KEY_EMAIL", email);
                 intent.putExtra("KEY_PASSWORD", password);
 
-                Toast.makeText(Register.this, "Create account successfully!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(Register.this, "Đăng kí tài khoản thành công!", Toast.LENGTH_SHORT).show();
                 startActivity(intent);
             }
         });
