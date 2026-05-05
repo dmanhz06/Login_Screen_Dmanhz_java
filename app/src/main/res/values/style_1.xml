@@ -3,6 +3,15 @@
 
     <style name="Theme.Testtt" parent="Theme.Material3.Light.NoActionBar" />
 
+    <style name="RoundedBottomImageHome">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSizeBottomLeft">0dp</item>
+        <item name="cornerSizeBottomRight">0dp</item>
+        <item name="cornerSizeTopLeft">0dp</item>
+        <item name="cornerSizeTopRight">0dp</item>
+
+    </style>
+
     <style name="RoundedBottomImage">
         <item name="cornerFamily">rounded</item>
         <item name="cornerSizeBottomLeft">0dp</item>
