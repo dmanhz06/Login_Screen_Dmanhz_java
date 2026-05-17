@@ -13,4 +13,8 @@
         android:id="@+id/menu_sort_date"
         android:title="Sort by Date"
         app:showAsAction="never" />
+    <item
+        android:id="@+id/menu_friend_suggestion"
+        android:title="Friend suggestion"
+        app:showAsAction="never" />
 </menu>

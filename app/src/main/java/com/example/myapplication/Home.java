@@ -1,6 +1,8 @@
 package com.example.myapplication;
 
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.view.ContextMenu;
 import android.view.Menu;
@@ -12,15 +14,17 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 
 import com.google.android.material.textfield.TextInputEditText;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
@@ -29,6 +33,7 @@ import java.util.Locale;
 public class Home extends AppCompatActivity {
 
     private static final int EDIT_POST_REQUEST = 1;
+    private static final int PERMISSIONS_REQUEST_READ_CONTACTS = 100;
 
     private TextInputEditText etPostContent;
     private Button btnPost;
@@ -156,9 +161,40 @@ public class Home extends AppCompatActivity {
             String order = isDateAscending ? "Cũ nhất" : "Mới nhất";
             Toast.makeText(this, "Sắp xếp bài đăng: " + order, Toast.LENGTH_SHORT).show();
             return true;
+        } else if (id == R.id.menu_friend_suggestion) {
+            checkContactsPermission();
+            return true;
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    private void checkContactsPermission() {
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_CONTACTS)
+                != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this,
+                    new String[]{Manifest.permission.READ_CONTACTS},
+                    PERMISSIONS_REQUEST_READ_CONTACTS);
+        } else {
+            startFriendSuggestionsActivity();
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (requestCode == PERMISSIONS_REQUEST_READ_CONTACTS) {
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                startFriendSuggestionsActivity();
+            } else {
+                Toast.makeText(this, "Permission denied to read contacts", Toast.LENGTH_SHORT).show();
+            }
+        }
+    }
+
+    private void startFriendSuggestionsActivity() {
+        Intent intent = new Intent(this, FriendSuggestionsActivity.class);
+        startActivity(intent);
     }
 
     // --- Context Menu ---
